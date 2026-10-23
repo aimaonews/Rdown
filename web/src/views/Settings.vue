@@ -2,6 +2,7 @@
   <div class="settings-view" v-loading="!store.loaded">
     <template v-if="store.loaded">
   
+
       <div class="settings-scroll">
       <el-form label-width="160px" label-position="right" class="settings-form">
 <!-- 基本 -->
@@ -29,7 +30,6 @@
 
           <el-form-item :label="t('settings.downloadDir')">
             <el-input v-model="form.downloadDir" :placeholder="t('settings.downloadDirPlaceholder')" />
-          </el-form-item>
           <el-form-item :label="t('settings.maxConcurrent')">
             <el-input-number v-model="form.maxConcurrentDownloads" :min="1" :max="20" class="num-stepper" />
           </el-form-item>
@@ -186,7 +186,7 @@
                 size="small"
                 class="var-tag"
                 @click="insertVar(v)"
-              >{{ '{' + v + '}' }}</el-tag>
+                >{{ '{' + v + '}' }}</el-tag>
             </div>
             <span class="hint hint-block">{{ t('settings.savePatternHint') }}</span>
           </el-form-item>
