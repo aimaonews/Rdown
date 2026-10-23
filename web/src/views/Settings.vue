@@ -6,7 +6,17 @@
       <el-form label-width="160px" label-position="right" class="settings-form">
 <!-- 基本 -->
         <section class="group-card" id="sec-basic">
-          <div class="group-title">{{ t('settings.groupBasic') }}</div>
+          <div class="group-header">
+            <div class="group-title">{{ t('settings.groupBasic') }}</div>
+            <span class="autosave" :class="{ 'just-saved': justSaved }">
+              <el-icon class="autosave-icon"><CircleCheckFilled /></el-icon>
+              {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
+            </span>
+            <span class="header-spacer"></span>
+            <el-button text class="factory-btn" :loading="resetting" @click="factoryReset">
+              {{ t('settings.factoryReset') }}
+            </el-button>
+          </div>
 
           <!-- 应用组并入：主题与语言 -->
           <el-form-item :label="t('settings.theme')">
@@ -121,7 +131,13 @@
 
 <!-- RPC / 远程访问 -->
         <section class="group-card" id="sec-rpc">
-          <div class="group-title">{{ t('settings.groupRpc') }}</div>
+          <div class="group-header">
+            <div class="group-title">{{ t('settings.groupRpc') }}</div>
+            <span class="autosave" :class="{ 'just-saved': justSaved }">
+              <el-icon class="autosave-icon"><CircleCheckFilled /></el-icon>
+              {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
+            </span>
+          </div>
           <el-form-item :label="t('settings.rpcPort')">
             <el-input
               v-model.number="form.rpcPort"
@@ -162,7 +178,13 @@
 
 <!-- 流媒体 -->
         <section class="group-card" id="sec-stream">
-          <div class="group-title">{{ t('settings.groupStream') }}</div>
+          <div class="group-header">
+            <div class="group-title">{{ t('settings.groupStream') }}</div>
+            <span class="autosave" :class="{ 'just-saved': justSaved }">
+              <el-icon class="autosave-icon"><CircleCheckFilled /></el-icon>
+              {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
+            </span>
+          </div>
           <el-form-item :label="t('settings.streamThreads')">
             <el-input-number v-model="form.streamThreadCount" :min="1" :max="64" class="num-stepper" />
           </el-form-item>
@@ -197,7 +219,13 @@
 
 <!-- BT -->
         <section class="group-card" id="sec-bt">
-          <div class="group-title">{{ t('settings.groupBt') }}</div>
+          <div class="group-header">
+            <div class="group-title">{{ t('settings.groupBt') }}</div>
+            <span class="autosave" :class="{ 'just-saved': justSaved }">
+              <el-icon class="autosave-icon"><CircleCheckFilled /></el-icon>
+              {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
+            </span>
+          </div>
           <el-form-item :label="t('settings.enableDht')">
             <el-switch v-model="form.enableDht" />
           </el-form-item>
@@ -246,7 +274,13 @@
 
 <!-- 后处理 -->
         <section class="group-card" id="sec-post">
-          <div class="group-title">{{ t('settings.groupPost') }}</div>
+          <div class="group-header">
+            <div class="group-title">{{ t('settings.groupPost') }}</div>
+            <span class="autosave" :class="{ 'just-saved': justSaved }">
+              <el-icon class="autosave-icon"><CircleCheckFilled /></el-icon>
+              {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
+            </span>
+          </div>
           <el-form-item :label="t('settings.webhookUrl')">
             <div class="webhook-bar">
               <el-input v-model="form.webhookUrl" placeholder="https://…" />
@@ -268,7 +302,13 @@
 
 <!-- 代理 -->
         <section class="group-card" id="sec-proxy">
-          <div class="group-title">{{ t('settings.groupProxy') }}</div>
+          <div class="group-header">
+            <div class="group-title">{{ t('settings.groupProxy') }}</div>
+            <span class="autosave" :class="{ 'just-saved': justSaved }">
+              <el-icon class="autosave-icon"><CircleCheckFilled /></el-icon>
+              {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
+            </span>
+          </div>
           <el-form-item :label="t('settings.proxyEnabled')">
             <el-switch v-model="form.proxyEnabled" />
           </el-form-item>
@@ -294,16 +334,6 @@
 
 
 
-        <!-- 底部固定栏：恢复出厂设置 + 自动保存状态（改动即自动保存，无需手动保存） -->
-        <div class="save-bar">
-          <span class="autosave-hint">
-            <el-icon v-if="justSaved" class="autosave-ok"><CircleCheckFilled /></el-icon>
-            {{ justSaved ? t('settings.autoSaved') : t('settings.autoSaveHint') }}
-          </span>
-          <el-button text class="factory-btn" :loading="resetting" @click="factoryReset">
-            {{ t('settings.factoryReset') }}
-          </el-button>
-        </div>
       
     </template>
   </div>
@@ -806,6 +836,37 @@ async function regenerateSecret() {
   scroll-margin-top: 72px;
 }
 
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: var(--kd-space-2);
+  margin-bottom: var(--kd-space-4);
+  padding-bottom: var(--kd-space-3);
+  border-bottom: 1px solid var(--kd-border-secondary);
+}
+
+.autosave {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--kd-text-muted);
+  transition: color 0.3s;
+}
+
+.autosave-icon {
+  font-size: 13px;
+}
+
+.autosave.just-saved {
+  color: var(--kd-success);
+}
+
+.header-spacer {
+  flex: 1;
+}
+
+
 .group-title {
   font-size: 15px;
   font-weight: 600;
@@ -954,36 +1015,6 @@ async function regenerateSecret() {
 }
 
 /* 吸底保存栏（毛玻璃） */
-.save-bar {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--kd-space-3);
-  padding: var(--kd-space-3) var(--kd-space-6);
-  margin-top: var(--kd-space-3);
-  background: var(--kd-card-bg);
-  border: 1px solid var(--kd-border);
-  border-radius: var(--kd-radius-card);
-}
-
-.dirty-hint {
-  font-size: var(--kd-caption);
-  color: var(--kd-warning);
-}
-
-/* 自动保存状态指示 */
-.autosave-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--kd-caption);
-  color: var(--kd-text-muted);
-}
-
-.autosave-ok {
-  color: var(--kd-success);
-}
-
 .factory-btn {
   margin-left: auto;
   color: var(--kd-text-muted);
