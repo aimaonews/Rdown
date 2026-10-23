@@ -1,18 +1,16 @@
-// 商店素材后处理：promo 裁剪为 440×280；4 张截图 RGBA→RGB（合成到白底，商店要求无 Alpha）
+// 商店素材后处理：4 张截图 RGBA→RGB（合成到白底，商店要求无 Alpha）
 import fs from 'node:fs';
 import zlib from 'node:zlib';
 
 function decodePNG(buf) {
   if (!buf.slice(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) throw new Error('not png');
-  let off = 8, w = 0, h = 0, bitDepth = 8, colorType = 6;
+  let off = 8, w = 0, h = 0, colorType = 6;
   const idat = [];
   while (off < buf.length) {
     const len = buf.readUInt32BE(off);
     const type = buf.toString('ascii', off + 4, off + 8);
-    if (type === 'IHDR') {
-      w = buf.readUInt32BE(off + 8); h = buf.readUInt32BE(off + 12);
-      bitDepth = buf[off + 16]; colorType = buf[off + 17];
-    } else if (type === 'IDAT') idat.push(buf.subarray(off + 8, off + 8 + len));
+    if (type === 'IHDR') { w = buf.readUInt32BE(off + 8); h = buf.readUInt32BE(off + 12); colorType = buf[off + 17]; }
+    else if (type === 'IDAT') idat.push(buf.subarray(off + 8, off + 8 + len));
     else if (type === 'IEND') break;
     off += 12 + len;
   }
@@ -34,12 +32,8 @@ function decodePNG(buf) {
         case 1: recon = v + a; break;
         case 2: recon = v + b; break;
         case 3: recon = v + ((a + b) >> 1); break;
-        case 4: {
-          const p = a + b - c, pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c);
-          recon = v + (pa <= pb && pa <= pc ? a : pb <= pc ? b : c);
-          break;
-        }
-        default: throw new Error('bad filter ' + filter);
+        case 4: { const p = a + b - c, pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c); recon = v + (pa <= pb && pa <= pc ? a : pb <= pc ? b : c); break; }
+        default: throw new Error('bad filter');
       }
       out[y * stride + x] = recon & 0xff;
     }
@@ -47,42 +41,18 @@ function decodePNG(buf) {
   return { w, h, ch, colorType, data: out };
 }
 
-const crcT = (() => {
-  const t = new Uint32Array(256);
-  for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = (c & 1) ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; }
-  return t;
-})();
-function crc32(b) { let c = 0xffffffff; for (let i = 0; i < b.length; i++) c = crcT[(c ^ b[i]) & 0xff] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; }
-function chunk(t, d) { const b = Buffer.alloc(12 + d.length); b.writeUInt32BE(d.length, 0); b.write(t, 4, 'ascii'); d.copy(b, 8); b.writeUInt32BE(crc32(b.subarray(4, 8 + d.length)), 8 + d.length); return b; }
+const crcT = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = (c & 1) ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t })();
+function crc32(b) { let c = 0xffffffff; for (let i = 0; i < b.length; i++) c = crcT[(c ^ b[i]) & 0xff] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0 }
+function chunk(t, d) { const b = Buffer.alloc(12 + d.length); b.writeUInt32BE(d.length, 0); b.write(t, 4, 'ascii'); d.copy(b, 8); b.writeUInt32BE(crc32(b.subarray(4, 8 + d.length)), 8 + d.length); return b }
 function encodePNG(w, h, rgb) {
   const sig = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
-  const ihdr = Buffer.alloc(13);
-  ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4);
-  ihdr[8] = 8; ihdr[9] = 2; // color type 2: RGB 无 Alpha
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(w, 0); ihdr.writeUInt32BE(h, 4); ihdr[8] = 8; ihdr[9] = 2;
   const stride = w * 3, raw = Buffer.alloc(h * (stride + 1));
   for (let y = 0; y < h; y++) { raw[y * (stride + 1)] = 0; rgb.copy(raw, y * (stride + 1) + 1, y * stride, (y + 1) * stride); }
   return Buffer.concat([sig, chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw, { level: 9 })), chunk('IEND', Buffer.alloc(0))]);
 }
 
-// ---- 1. promo: 440x320 -> 440x280（裁顶 40px）----
-{
-  const src = decodePNG(fs.readFileSync('docs/store-assets/promo-440x320.png'));
-  const W = 440, H = 280, cropY = 40;
-  const rgb = Buffer.alloc(W * H * 3);
-  for (let y = 0; y < H; y++) {
-    const sy = y + cropY;
-    for (let x = 0; x < W; x++) {
-      const si = (sy * src.w + x) * src.ch;
-      const o = (y * W + x) * 3;
-      if (src.ch === 4) { rgb[o] = src.data[si]; rgb[o + 1] = src.data[si + 1]; rgb[o + 2] = src.data[si + 2]; }
-      else { rgb[o] = src.data[si]; rgb[o + 1] = src.data[si + 1]; rgb[o + 2] = src.data[si + 2]; }
-    }
-  }
-  fs.writeFileSync('docs/store-assets/promo-tile-440x280.png', encodePNG(W, H, rgb));
-  console.log('promo-tile-440x280.png ✓ (440x280, RGB)');
-}
-
-// ---- 2. 4 张截图 RGBA -> RGB（白底合成）----
+console.log('=== 截图 RGBA → RGB ===');
 for (const f of ['shot-01', 'shot-02', 'shot-03', 'shot-04']) {
   const src = decodePNG(fs.readFileSync(`docs/store-assets/${f}.png`));
   const W = src.w, H = src.h;
@@ -95,13 +65,12 @@ for (const f of ['shot-01', 'shot-02', 'shot-03', 'shot-04']) {
     rgb[o + 2] = Math.round(src.data[si + 2] * a + 255 * (1 - a));
   }
   fs.writeFileSync(`docs/store-assets/${f}.png`, encodePNG(W, H, rgb));
-  console.log(`${f}.png ✓ (${W}x${H}, RGBA->RGB)`);
+  console.log(`${f}.png ✓ (${W}x${H}, RGB)`);
 }
 
-// ---- 3. 校验全部素材 ----
-console.log('\n=== 商店素材终验 ===');
+console.log('\n=== 终验 ===');
 for (const f of fs.readdirSync('docs/store-assets')) {
-  if (!f.endsWith('.png')) continue;
+  if (!f.endsWith('.png') || f === '.DS_Store') continue;
   const b = fs.readFileSync('docs/store-assets/' + f);
-  console.log(f.padEnd(28), b.readUInt32BE(16) + 'x' + b.readUInt32BE(20), 'colorType=' + b[25]);
+  console.log(f.padEnd(28), b.readUInt32BE(16) + 'x' + b.readUInt32BE(20), 'ct=' + b[25]);
 }
