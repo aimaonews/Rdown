@@ -3,11 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 /**
- * 下载后处理钩子（Gopeed webhook / 后处理脚本 / 自动解压）：
- *  - 任务完成/失败时 POST settings.webhookUrl（JSON：{event, task}）
- *  - 执行 settings.postScript（env 注入 RDOWN_EVENT/RDOWN_TASK_ID/RDOWN_TASK_NAME/RDOWN_FILE_*）
- *  - settings.autoExtract 时自动解压 zip/tar/tgz（Windows 内置 tar.exe = bsdtar 可解 zip/tar；
- *    7z/rar 需要外部 7z，未内置时给出明确提示）
+ * Post-processing hooks (Gopeed-style webhook / post-script / auto-extract):
+ *  - POST settings.webhookUrl on task complete/error (JSON {event, task})
+ *  - run settings.postScript with RDOWN_EVENT/RDOWN_TASK_ID/RDOWN_TASK_NAME/RDOWN_FILE_* env
+ *  - auto-extract zip/tar/tgz when settings.autoExtract (Windows built-in tar.exe = bsdtar)
  */
 export class HookRunner {
   constructor(settings) { this.settings = settings; }
@@ -68,7 +67,7 @@ export class HookRunner {
       const outDir = file.replace(/\.(zip|tar|tgz|tar\.gz|tar\.bz2|tar\.xz|gz)$/i, '');
       try {
         fs.mkdirSync(outDir, { recursive: true });
-        // Windows 10+ 自带 bsdtar（tar.exe），支持 zip/tar/tgz
+        // Windows 10+ ships bsdtar (tar.exe), handles zip/tar/tgz
         await new Promise((resolve, reject) => {
           const p = spawn('tar', ['-xf', file, '-C', outDir], { windowsHide: true, timeout: 600000 });
           p.on('error', reject);
@@ -76,7 +75,7 @@ export class HookRunner {
         });
         console.log(`[hooks] extracted ${path.basename(file)} -> ${outDir}`);
       } catch (e) {
-        console.log(`[hooks] auto-extract ${path.basename(file)} failed: ${e.message}（7z/rar 需安装 7-Zip 后手动解压）`);
+        console.log(`[hooks] auto-extract ${path.basename(file)} failed: ${e.message} (7z/rar need 7-Zip installed)`);
       }
     }
   }

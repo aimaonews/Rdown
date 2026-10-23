@@ -1,6 +1,6 @@
 /**
- * 速度历史环形缓冲（数据看板数据源，Motrix Dashboard 数据源等价物）：
- * 每 1s 采样一次全局速度，保留最近 300 点（5 分钟）。
+ * Speed history ring buffer (dashboard data source, Motrix Dashboard equivalent):
+ * samples global speed every 1s, keeps the last 300 points (5 minutes).
  */
 export class SpeedHistory {
   constructor() {
@@ -14,7 +14,7 @@ export class SpeedHistory {
     if (this.samples.length > this.maxSamples) this.samples.shift();
   }
 
-  /** 用任务列表估算累计下载量（aria2 不跨会话统计） */
+  /** Estimate cumulative transfer from the task list (aria2 does not track across sessions) */
   accumulate(tasks) {
     let dl = 0, ul = 0, done = 0;
     for (const t of tasks) {

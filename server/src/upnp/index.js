@@ -4,8 +4,9 @@ const require = createRequire(import.meta.url);
 const NatAPI = require('nat-api');
 
 /**
- * UPnP/NAT-PMP 端口映射管理器（参考 Motrix src/main/core/UPnPManager.js：
- * 薄封装 nat-api 库，map/unmap BT 监听端口，失败仅告警不阻断下载）。
+ * UPnP/NAT-PMP port mapping manager (reference: Motrix src/main/core/UPnPManager.js,
+ * a thin wrapper over the nat-api package). Maps/unmaps the BT listen port;
+ * failures only warn and never block downloads.
  */
 export class UpnpManager {
   constructor(settings) {
@@ -21,7 +22,7 @@ export class UpnpManager {
     return this.client;
   }
 
-  /** 映射端口（BT 监听端口 + DHT 端口）。失败返回 false 并记日志，不影响下载。 */
+  /** Map a port. Returns false on failure without affecting downloads. */
   async map(port) {
     if (!port) return false;
     if (this.mappedPorts.has(port)) return true;
@@ -49,7 +50,7 @@ export class UpnpManager {
     }
   }
 
-  /** 应用当前设置：开启则映射监听端口，关闭则清理既有映射。 */
+  /** Apply current settings: map the listen port when enabled, clean up when disabled. */
   async apply(settings) {
     this.settings = settings;
     const port = Number(settings.listenPort) || 51413;
