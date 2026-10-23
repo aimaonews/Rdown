@@ -1,16 +1,17 @@
-// 单位双向换算：设置表单 UI 显示层 <-> 后端存储格式。
-// 铁律：存储格式不变（字节/秒 number、毫秒 number、'NM'/'0' 字符串、逗号分隔 tracker），
-// 所有换算只发生在表单的 Load / Save 层。纯函数，无 Vue 依赖，可被 node 测试直接导入。
+// Unit bidirectional conversion: settings form UI display layer <-> backend storage format.
+// Iron rule: storage formats never change (bytes/sec number, ms number, 'NM'/'0' strings,
+// comma-separated trackers); all conversion happens only at form Load / Save.
+// Pure functions, no Vue dependency, directly importable by node tests.
 
 export const BYTES_PER_KB = 1024
 export const BYTES_PER_MB = 1048576
 
-// ---- 限速：存储 number(字节/秒) <-> UI 数字（'MB' = MB/s，'KB' = KB/s） ----
+// ---- Speed limits: stored number(bytes/s) <-> UI number ('MB' = MB/s, 'KB' = KB/s) ----
 export function bytesToSpeedDisplay(bytes, unit = 'MB') {
   const n = Number(bytes)
   if (!Number.isFinite(n) || n <= 0) return 0
   if (unit === 'KB') return Math.round(n / BYTES_PER_KB)
-  // MB/s 保留最多 2 位小数，避免 102400 -> 0.09765625 这类长尾
+  // MB/s keeps at most 2 decimals, avoiding 102400 -> 0.09765625 long tails
   return Math.round((n / BYTES_PER_MB) * 100) / 100
 }
 
@@ -20,7 +21,7 @@ export function speedDisplayToBytes(value, unit = 'MB') {
   return Math.round(n * (unit === 'KB' ? BYTES_PER_KB : BYTES_PER_MB))
 }
 
-// ---- 流媒体超时：存储 ms <-> UI 秒 ----
+// ---- Stream timeout: stored ms <-> UI seconds ----
 export function msToSeconds(ms) {
   const n = Number(ms)
   if (!Number.isFinite(n) || n <= 0) return 0
@@ -33,7 +34,7 @@ export function secondsToMs(seconds) {
   return Math.round(n * 1000)
 }
 
-// ---- 容量字符串：存储 '64M' / '0' <-> UI MB 数值 ----
+// ---- Size strings: stored '64M' / '0' <-> UI MB number ----
 export function sizeStrToMB(str) {
   if (str === null || str === undefined) return 0
   const s = String(str).trim()
@@ -56,7 +57,7 @@ export function mbToSizeStr(mb) {
   return `${Math.round(n)}M`
 }
 
-// ---- Tracker 列表：存储逗号分隔 <-> UI 每行一个 ----
+// ---- Tracker list: stored comma-separated <-> UI one-per-line ----
 export function trackersToText(str) {
   if (!str) return ''
   return String(str)
@@ -66,7 +67,7 @@ export function trackersToText(str) {
     .join('\n')
 }
 
-// 兼容换行与逗号两种分隔，去空、去重后逗号拼接
+// Accepts newline or comma separators; dedupes and joins with commas
 export function textToTrackers(text) {
   if (!text) return ''
   const parts = String(text)
@@ -76,7 +77,7 @@ export function textToTrackers(text) {
   return [...new Set(parts)].join(',')
 }
 
-// ---- 端口：1~65535 整数校验 ----
+// ---- Ports: integer validation 1~65535 ----
 export function isValidPort(p) {
   const n = Number(p)
   return Number.isInteger(n) && n >= 1 && n <= 65535

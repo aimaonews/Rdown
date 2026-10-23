@@ -1,4 +1,4 @@
-// REST API 封装。base 走同源 /api/v1（dev 由 vite proxy 转发到 127.0.0.1:16801）
+// REST API client. Same-origin /api/v1 (vite proxy forwards to 127.0.0.1:16801 in dev).
 
 let authToken = ''
 
