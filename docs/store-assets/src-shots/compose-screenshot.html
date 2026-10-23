@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 800px; overflow: hidden;
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #312e81 0%, #4f46e5 55%, #6d64ec 100%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .headline { margin-top: 50px; color: #ffffff; font-size: 42px; font-weight: 700; letter-spacing: 0.5px; text-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+  .subline { margin-top: 12px; color: #c7d2fe; font-size: 18px; }
+  .card { margin-top: 36px; background: #ffffff; border-radius: 14px; padding: 12px; box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35); line-height: 0; }
+  .card img { width: 960px; display: block; border-radius: 8px; }
+  .footer { margin-top: auto; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; color: #e0e7ff; font-size: 14px; }
+  .footer img { width: 24px; height: 24px; border-radius: 6px; }
+  .footer b { font-weight: 600; }
+  .footer span { opacity: 0.75; }
+</style>
+</head>
+<body>
+  <div class="headline" id="h1"></div>
+  <div class="subline" id="h2"></div>
+  <div class="card"><img id="shot" src="" alt=""></div>
+  <div class="footer"><img src="logo.png" alt=""><b>Rdown</b><span>· aimao.today</span></div>
+  <script>
+    const p = new URLSearchParams(location.search);
+    document.getElementById('h1').textContent = p.get('h1') || '';
+    document.getElementById('h2').textContent = p.get('h2') || '';
+    document.getElementById('shot').src = p.get('img');
+  </script>
+</body>
+</html>

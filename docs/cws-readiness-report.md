@@ -1,6 +1,6 @@
 # Rdown 扩展 — Chrome Web Store 全要素合规审查总报告
 
-审查日期：2026-10-23 · 范围：extension/ 全部源码 + _locales 9 语言 + 商店后台物料 + 代码安全红线
+审查日期：2026-10-24（复审，UI 视觉重构 + v0.0.1 版本定稿后重新制作素材） · 范围：extension/ 全部源码 + _locales 9 语言 + 商店后台物料 + 代码安全红线
 结论：**全部就绪，可提交**。
 
 ---
@@ -10,7 +10,7 @@
 | 项 | 结果 |
 |---|---|
 | 打包脚本 | `tools/pack-extension.mjs`（纯 Node 手写 ZIP，STORE 方法），`npm run pack:extension` |
-| 产物 | `extension-pack.zip`（27 个文件，894,665 B） |
+| 产物 | `extension-pack.zip`（27 个文件，895,708 B，version 0.0.1） |
 | ZIP 根目录 | `manifest.json` 为首个条目 ✓ |
 | 排除项 | gen-icons.js、store/、*.ts、*.map、node_modules、.git、.env 均未打入 ✓ |
 | JSON 校验 | manifest.json 与 9 个 messages.json 全部合法，无注释、无尾随逗号 ✓ |
@@ -45,10 +45,10 @@
 ### 商店后台素材（全部 24 位 RGB 无 Alpha，已实测）
 | 文件 | 尺寸 | 用途 |
 |---|---|---|
-| docs/store-assets/shot-01.png | 1280×800 (ct=2) | 截图 1：任务列表（亮色） |
-| docs/store-assets/shot-02.png | 1280×800 (ct=2) | 截图 2：新建任务·流媒体解析 |
-| docs/store-assets/shot-03.png | 1280×800 (ct=2) | 截图 3：扩展 popup |
-| docs/store-assets/shot-04.png | 1280×800 (ct=2) | 截图 4：设置页（暗色） |
+| docs/store-assets/shot-01.png | 1280×800 (ct=2) | 截图 1：任务列表（亮色）· "一键接管，高速下载" |
+| docs/store-assets/shot-02.png | 1280×800 (ct=2) | 截图 2：新建任务·流媒体解析 · "流媒体下载，一站搞定" |
+| docs/store-assets/shot-03.png | 1280×800 (ct=2) | 截图 3：设置页（亮色）· "精细到每一个细节" |
+| docs/store-assets/shot-04.png | 1280×800 (ct=2) | 截图 4：任务列表（暗色模式）· "暗色模式，昼夜随行" |
 | docs/store-assets/promo-tile-440x280.png | 440×280 (ct=2) | 小型宣传图（全球共用） |
 | docs/store-assets/marquee-1400x560.png | 1400×560 (ct=2) | 大型横幅图（选填，Featured 提名用） |
 
@@ -76,7 +76,7 @@
 
 ## 6. manifest 关键字段
 
-- manifest_version: 3 ✓，version: 3.0.0 ✓，default_locale: en ✓
+- manifest_version: 3 ✓，version: 0.0.1 ✓，default_locale: en ✓
 - name/short_name/description/actionTitle 全部 `__MSG_*__` ✓
 - homepage_url: https://github.com/aimaonews/Rdown ✓（本轮补齐）
 - minimum_chrome_version: 116（Service Worker WebSocket 需求）✓

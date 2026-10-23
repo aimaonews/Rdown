@@ -26,9 +26,9 @@ This extension is the official companion of Rdown, the open-source download mana
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (suggested top titles, not for the store page)
-1. Popup: capture switch and media found on this page
-2. Options: filter rules and multi-server routing
-3. Web dashboard: task list with real-time progress
-4. New task: stream parsing and quality selection
+<!-- SCREENSHOTS CAPTIONS (titles are baked into the images, in Simplified Chinese)
+1. Task list (light): one-click takeover, high-speed downloads
+2. New task: stream parsing and quality selection
+3. Settings: fine-grained controls
+4. Task list (dark mode)
 -->

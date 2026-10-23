@@ -26,9 +26,9 @@ Rdown es la extensión oficial del gestor de descargas open source Rdown. Envía
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (títulos sugeridos, no para la página de la tienda)
-1. Ventana emergente: interruptor de captura y medios de esta página
-2. Opciones: reglas de filtrado y enrutado multiservidor
-3. Panel web: lista de tareas con progreso en tiempo real
-4. Nueva tarea: análisis de streams y selección de calidad
+<!-- SCREENSHOTS CAPTIONS (los títulos van incrustados en las imágenes, en chino simplificado)
+1. Lista de tareas (claro): toma de control con un clic, descargas rápidas
+2. Nueva tarea: análisis de streams y selección de calidad
+3. Ajustes: control al detalle
+4. Lista de tareas (modo oscuro)
 -->

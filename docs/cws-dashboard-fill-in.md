@@ -1,14 +1,14 @@
 # Rdown — Chrome Developer Dashboard 全字段复制粘贴单
 
 > 用途：在 Chrome Web Store 开发者后台逐项复制粘贴。字段名保留英文，粘贴文案为英文，说明为中文。
-> 依据：`extension/manifest.json`（v3.0.0，MV3）、`extension/PRIVACY.md`（2026-10-19 版）、`extension/store/listing.md`、`README.md`。
+> 依据：`extension/manifest.json`（v0.0.1，MV3）、`extension/PRIVACY.md`（2026-10-19 版）、`extension/store/listing.md`、`README.md`。
 > 仓库地址统一使用：https://github.com/aimaonews/Rdown
 
 ---
 
 ## 1. Package（ZIP 包）
 
-- **版本号**：`3.0.0`（首次上传；与 `extension/manifest.json` 的 `"version": "3.0.0"` 一致，后续更新必须递增）
+- **版本号**：`0.0.1`（首次上传；与 `extension/manifest.json` 的 `"version": "0.0.1"` 一致，后续更新必须递增）
 - **打包要求**：`manifest.json` 必须位于 ZIP 根目录（不要把 `extension/` 文件夹本身打包进去）
 
 ### 上传前核查项清单
@@ -79,12 +79,12 @@ No mature content
 
 ### Screenshots（截图）
 
-4 张 **1280×800** PNG/JPEG，存放于 `docs/store-assets/`（源图在 `docs/store-assets/src-shots/`）。截图标题建议已写在各语言的 `docs/store-listing/<locale>.md` 的 "Localized Graphic Assets Checklist" 一节：
+4 张 **1280×800** PNG/JPEG，存放于 `docs/store-assets/`（源图在 `docs/store-assets/src-shots/`，标题已烧录在图片内）。各语言的 `docs/store-listing/<locale>.md` 的 "SCREENSHOTS CAPTIONS" 注释块列有对应的说明：
 
-1. 扩展 popup —— 接管开关 + 本页媒体列表
-2. 选项页 —— 过滤规则与多服务器配置
-3. Rdown Web 管理界面 —— 任务列表（亮色）
-4. 新建任务对话框 —— 流媒体解析与清晰度选择
+1. 任务列表（亮色）—— "一键接管，高速下载"
+2. 新建任务对话框 —— 流媒体解析与清晰度选择
+3. 设置页 —— "精细到每一个细节"
+4. 任务列表（暗色模式）—— "暗色模式，昼夜随行"
 
 ### Small Promo Tile（小宣传图）
 

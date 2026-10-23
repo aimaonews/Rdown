@@ -26,9 +26,9 @@
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (스크린샷 상단 제목 제안, 스토어 페이지 미게재)
-1. 팝업: 이관 스위치와 이 페이지의 미디어 목록
-2. 옵션: 필터 규칙과 다중 서버 라우팅
-3. 웹 대시보드: 작업 목록과 실시간 진행률
-4. 새 작업: 스트림 분석과 화질 선택
+<!-- SCREENSHOTS CAPTIONS (제목은 이미지에 굽혀 넣었으며 간체 중국어입니다)
+1. 작업 목록(라이트): 원클릭 이관, 고속 다운로드
+2. 새 작업: 스트림 분석과 화질 선택
+3. 설정 페이지: 세세한 조절
+4. 작업 목록(다크 모드)
 -->

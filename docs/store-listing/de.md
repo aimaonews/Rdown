@@ -26,9 +26,9 @@ Rdown ist die offizielle Erweiterung des gleichnamigen Open-Source-Download-Mana
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (Vorschläge für Titelzeilen, nicht für die Store-Seite)
-1. Popup: Übernahme-Schalter und gefundene Medien dieser Seite
-2. Optionen: Filterregeln und Multi-Server-Routing
-3. Web-Oberfläche: Aufgabenliste mit Echtzeit-Fortschritt
-4. Neue Aufgabe: Stream-Analyse und Qualitätsauswahl
+<!-- SCREENSHOTS CAPTIONS (Titel sind fest in den Bildern eingebrannt, auf Vereinfachtem Chinesisch)
+1. Aufgabenliste (hell): Übernahme mit einem Klick, schnelle Downloads
+2. Neue Aufgabe: Stream-Analyse und Qualitätsauswahl
+3. Einstellungen: fein einstellbar
+4. Aufgabenliste (Dunkelmodus)
 -->
