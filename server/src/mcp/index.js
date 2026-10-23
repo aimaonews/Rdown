@@ -2,16 +2,16 @@ import { ARIA2_BIN, FFMPEG_BIN, FFPROBE_BIN, NM3U8_BIN, DOWNLOAD_DIR, DATA_DIR, 
 import { isStreamUrl } from '../util/helpers.js';
 
 /**
- * MCP Server (Model Context Protocol), tool semantics reference Gopeed pkg/mcpserver/server.go:
- * Streamable HTTP, stateless, JSON responses; 9 standard tools mapped to download operations.
- * Endpoint: POST /mcp (JSON-RPC 2.0)
+ * MCP Server（Model Context Protocol），工具语义参考 Gopeed pkg/mcpserver/server.go：
+ * Streamable HTTP、无状态、JSON 响应；9 大标准工具直接映射下载管理操作。
+ * 端点：POST /mcp（JSON-RPC 2.0）
  */
 
 const PROTOCOL_VERSION = '2025-03-26';
 
 const SERVER_INFO = {
   name: 'rdown',
-  version: '1.0.0',
+  version: '0.0.1',
 };
 
 const INSTRUCTIONS = 'Rdown is a download manager for HTTP/HTTPS, FTP/SFTP, BitTorrent, magnet and HLS/DASH streams. ' +
@@ -93,13 +93,13 @@ export class McpServer {
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 1) }], structuredContent: data };
       }
       default:
-        // notifications (e.g. notifications/initialized): silently ignored per JSON-RPC
+        // notifications/initialized 等通知：按 JSON-RPC 规范静默忽略
         if (typeof msg.id === 'undefined' || msg.id === null) return {};
         throw new Error(`unknown method: ${msg.method}`);
     }
   }
 
-  // ---- tool implementations (reuse the same logic as REST) ----
+  // ---- 工具实现（复用 REST 同源逻辑） ----
 
   async _t_resolve_task({ url }) {
     if (!url) throw new Error('url required');
@@ -112,7 +112,7 @@ export class McpServer {
     if (!url) throw new Error('url required');
     const b = { url, options: args.options || {}, stream: args.stream };
     if (args.options?.checksum) b.options.checksum = args.options.checksum;
-    // same path as POST /api/v1/tasks
+    // 与 POST /api/v1/tasks 相同的路径
     const { createTaskFromBody } = await import('../tasks/create.js');
     return createTaskFromBody(this.api, b);
   }
@@ -188,7 +188,7 @@ export class McpServer {
   }
 }
 
-/** doctor self-check (semantics reference N_m3u8DL-RE doctor: version/path/availability + dir writability) */
+/** doctor 自检（语义参考 N_m3u8DL-RE doctor：版本/路径/可用性 + 目录可写） */
 export async function runDoctor() {
   const execFileAsync = (await import('node:child_process')).execFile;
   const run = (bin, arg) => new Promise((resolve) => {
