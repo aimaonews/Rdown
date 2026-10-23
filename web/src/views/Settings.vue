@@ -2,7 +2,6 @@
   <div class="settings-view" v-loading="!store.loaded">
     <template v-if="store.loaded">
   
-
       <div class="settings-scroll">
       <el-form label-width="160px" label-position="right" class="settings-form">
 <!-- 基本 -->
@@ -18,7 +17,7 @@
           </el-radio-group>
           </el-form-item>
           <el-form-item :label="t('settings.language')">
-          <el-select v-model="form.locale" style="width: 240px" @change="onLocaleChange">
+          <el-select v-model="form.locale" style="width: 320px" @change="onLocaleChange">
           <el-option
           v-for="opt in localeOptions"
           :key="opt.value"
@@ -30,6 +29,7 @@
 
           <el-form-item :label="t('settings.downloadDir')">
             <el-input v-model="form.downloadDir" :placeholder="t('settings.downloadDirPlaceholder')" />
+          </el-form-item>
           <el-form-item :label="t('settings.maxConcurrent')">
             <el-input-number v-model="form.maxConcurrentDownloads" :min="1" :max="20" class="num-stepper" />
           </el-form-item>
@@ -153,7 +153,10 @@
             </div>
           </el-form-item>
           <el-form-item>
-            <span class="hint hint-block">{{ t('settings.rpcAccessHint', { port: form.rpcPort || 16800 }) }}</span>
+            <span class="hint hint-block">
+              {{ t('settings.rpcAccessHint', { port: form.rpcPort || 16800 }) }}
+              <el-button text size="small" class="ws-copy" @click="copyWsUrl">{{ t('settings.rpcSecretCopy') }}</el-button>
+            </span>
           </el-form-item>
         </section>
 
@@ -186,7 +189,7 @@
                 size="small"
                 class="var-tag"
                 @click="insertVar(v)"
-                >{{ '{' + v + '}' }}</el-tag>
+              >{{ '{' + v + '}' }}</el-tag>
             </div>
             <span class="hint hint-block">{{ t('settings.savePatternHint') }}</span>
           </el-form-item>
@@ -481,10 +484,13 @@ function fillForm() {
   form.maxConcurrentDownloads = s.maxConcurrentDownloads ?? 5
   form.maxConnectionPerServer = s.maxConnectionPerServer ?? 16
   form.split = s.split ?? 16
-  dlUnit.value = 'MB'
-  ulUnit.value = 'MB'
-  form.dlLimit = bytesToSpeedDisplay(s.maxOverallDownloadLimit ?? 0, 'MB')
-  form.ulLimit = bytesToSpeedDisplay(s.maxOverallUploadLimit ?? 0, 'MB')
+  // <1 MB/s 的限速自动切 KB/s 档，避免 0.29 这类换算残留精度
+  const dlBytes = s.maxOverallDownloadLimit ?? 0
+  const ulBytes = s.maxOverallUploadLimit ?? 0
+  dlUnit.value = dlBytes > 0 && dlBytes < 1048576 ? 'KB' : 'MB'
+  ulUnit.value = ulBytes > 0 && ulBytes < 1048576 ? 'KB' : 'MB'
+  form.dlLimit = bytesToSpeedDisplay(dlBytes, dlUnit.value)
+  form.ulLimit = bytesToSpeedDisplay(ulBytes, ulUnit.value)
   form.continueDownloads = s.continueDownloads ?? true
   form.minSplitSizeMB = sizeStrToMB(s.minSplitSize ?? '1M')
   form.fileAllocation = s.fileAllocation ?? 'none'
@@ -750,6 +756,13 @@ async function copySecret() {
   }
 }
 
+function copyWsUrl() {
+  const port = form.rpcPort || 16800
+  const host = form.rpcListenAll ? location.hostname : '127.0.0.1'
+  navigator.clipboard.writeText(`ws://${host}:${port}/jsonrpc`).catch(() => {})
+  ElMessage.success(t('settings.rpcSecretCopied'))
+}
+
 async function regenerateSecret() {
   secretRegenerating.value = true
   try {
@@ -794,10 +807,13 @@ async function regenerateSecret() {
 }
 
 .group-title {
-  font-size: var(--kd-t3);
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--kd-text-tertiary);
+  color: var(--kd-text-primary);
+  padding-left: var(--kd-space-3);
+  border-left: 3px solid var(--kd-primary);
+  line-height: 1.2;
   padding-bottom: var(--kd-space-3);
   margin-bottom: var(--kd-space-4);
   border-bottom: 1px solid var(--kd-border-secondary);
@@ -857,10 +873,13 @@ async function regenerateSecret() {
   color: var(--kd-text-muted);
 }
 
+.ws-copy { padding: 0 4px; height: auto; font-size: var(--kd-caption); }
+.ws-copy:hover { color: var(--kd-primary); }
+
 .hint {
   margin-left: var(--kd-space-3);
   font-size: var(--kd-caption);
-  color: var(--kd-text-muted);
+  color: var(--kd-text-tertiary);
 }
 
 .hint-block {
@@ -940,7 +959,7 @@ async function regenerateSecret() {
   display: flex;
   align-items: center;
   gap: var(--kd-space-3);
-  padding: var(--kd-space-3) var(--kd-space-4);
+  padding: var(--kd-space-3) var(--kd-space-6);
   margin-top: var(--kd-space-3);
   background: var(--kd-card-bg);
   border: 1px solid var(--kd-border);
@@ -972,6 +991,7 @@ async function regenerateSecret() {
 
 .factory-btn:hover {
   color: var(--kd-danger);
+  background: var(--kd-danger-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {

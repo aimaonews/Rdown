@@ -20,7 +20,7 @@
           <el-icon style="margin-right: 4px"><Plus /></el-icon>{{ t('tasks.newTask') }}
         </el-button>
         <el-button @click="onPauseAll" :disabled="!store.activeTasks.length">{{ t('tasks.pauseAll') }}</el-button>
-        <el-button @click="onResumeAll">{{ t('tasks.resumeAll') }}</el-button>
+        <el-button @click="onResumeAll" :disabled="!store.tasks.some(t => t.status === 'paused')">{{ t('tasks.resumeAll') }}</el-button>
       </div>
     </div>
 

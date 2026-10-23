@@ -36,16 +36,23 @@
     #addServer { margin-top: 10px; font-size: 13px; padding: 6px 14px; }
     @media (prefers-color-scheme: dark) {
       body { background: #16161a; color: #e8e8e8; }
-      h2 { border-bottom-color: #3a3a3a; }
-      input, textarea, select { background: #2a2a2a; border-color: #444444; }
+      h1, h2 { color: #e4e4e7; }
+      h2 { border-bottom-color: rgba(255,255,255,0.10); }
+      input[type=text], input[type=password], input[type=number], textarea, select { background: #1e1f25; border-color: #3a3b42; color: #e4e4e7; }
+      input::placeholder, textarea::placeholder { color: #6b7280; }
+      select { appearance: none; background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23888%22 stroke-width=%222%22><path d=%22M6 9l6 6 6-6%22/></svg>'); background-repeat: no-repeat; background-position: right 10px center; }
+      input[type=checkbox] { accent-color: #4f46e5; width: 16px; height: 16px; }
+      ::-webkit-scrollbar { width: 10px; }
+      ::-webkit-scrollbar-thumb { background: #3a3b42; border-radius: 5px; }
+      ::-webkit-scrollbar-track { background: transparent; }
       button { background: #818cf8; }
       button:hover { background: #a5b4fc; }
       button.secondary { background: #2a2a2a; color: #e8e8e8; }
       button.secondary:hover { background: #3a3a3a; }
       .srv-del { background: #450a0a; color: #f87171; }
       .srv-del:hover { background: #7f1d1d; }
-      .hint { color: #888888; }
-      .server-head { color: #888888; }
+      .hint { color: #8b8fa3; }
+      .server-head { color: #8b8fa3; }
     }
   </style>
 </head>

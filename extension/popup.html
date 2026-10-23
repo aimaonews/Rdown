@@ -10,18 +10,20 @@
     .capture { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #f7f9fa; border-radius: 8px; margin-bottom: 10px; font-size: 13px; }
     .switch { position: relative; width: 40px; height: 22px; }
     .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; inset: 0; background: #cbd5e1; border-radius: 22px; transition: .2s; cursor: pointer; }
+    .slider { position: absolute; inset: 0; background: #d4d4d8; border-radius: 22px; transition: .2s; cursor: pointer; }
     .slider::before { content: ""; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
     .switch input:checked + .slider { background: #4f46e5; }
     .switch input:checked + .slider::before { transform: translateX(18px); }
     .stat { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-    .stat b { font-variant-numeric: tabular-nums; }
+    .stat b { font-variant-numeric: tabular-nums; font-weight: 600; color: #1e293b; }
+    .stat { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
     #state { font-size: 12px; color: #64748b; margin-top: 10px; min-height: 16px; }
     .row { display: flex; gap: 8px; }
     button { flex: 1; margin-top: 12px; padding: 8px; border: none; border-radius: 6px; background: #4f46e5; color: #fff; font-size: 13px; cursor: pointer; }
     button.ghost { background: #eef2ff; color: #4f46e5; }
-    button:hover { background: #818cf8; }
-    button.ghost:hover { background: #e0e7ff; }
+    button:hover { background: #4338ca; }
+    :focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
+    button.ghost:hover { background: #dbe3ff; }
     /* 本页媒体 */
     #mediaBox { margin-top: 10px; }
     .media-head { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #16a34a; }

@@ -170,12 +170,12 @@ watch(
 .nav-item.active::before {
   content: '';
   position: absolute;
-  left: -8px;
+  left: 4px;
   top: 50%;
   transform: translateY(-50%);
   width: 3px;
-  height: 24px;
-  border-radius: 0 2px 2px 0;
+  height: 20px;
+  border-radius: 2px;
   background: var(--kd-primary);
 }
 

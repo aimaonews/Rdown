@@ -139,7 +139,7 @@ html.dark {
 
   --kd-text-primary: #e8e8e8;
   --kd-text-secondary: #b0b0b0;
-  --kd-text-tertiary: #888888;
+  --kd-text-tertiary: #9a9a9a;
   --kd-text-muted: #666666;
   --kd-text-content: #c0c0c0;
 
@@ -278,6 +278,8 @@ a:hover { color: var(--kd-link-hover); }
 
 /* 进度条圆角 */
 .el-progress-bar__outer { border-radius: 4px; }
+html.dark .el-progress-bar__outer { background-color: #3f3f46; }
+.el-textarea__inner { resize: none; }
 .el-progress-bar__inner { border-radius: 4px; }
 
 /* 消息提示层级 */

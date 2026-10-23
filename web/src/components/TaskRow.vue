@@ -263,5 +263,8 @@ async function onDeleteCommand(cmd) {
   gap: 8px;
   flex-shrink: 0;
   align-items: center;
+  justify-content: flex-end;
+  /* 定宽使所有行的进度条右端锚定同一 x，消除状态切换时的锯齿 */
+  min-width: 180px;
 }
 </style>

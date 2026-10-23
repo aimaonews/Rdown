@@ -1,5 +1,5 @@
 <template>
-  <el-dialog
+  <el-dialog align-center
     :model-value="modelValue"
     :title="t('dialog.title')"
     width="680px"
@@ -17,7 +17,7 @@
         :placeholder="t('dialog.urlsPlaceholder')"
       />
       <div class="url-bar">
-        <el-button size="small" @click="torrentInputRef.click()">{{ t('dialog.chooseTorrent') }}</el-button>
+        <el-button @click="torrentInputRef.click()">{{ t('dialog.chooseTorrent') }}</el-button>
         <input
           ref="torrentInputRef"
           type="file"
