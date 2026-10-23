@@ -1,41 +1,34 @@
-# Rdown — Chrome Web Store Listing (English)
+<!-- Item Title: Rdown -->
+<!-- Item Summary: Rdown sends browser downloads to your local download manager: multi-connection HTTP, BT/magnet, m3u8/mpd streams, auto fallback. -->
+<!-- Summary length: 128 chars -->
 
-> Paste into Chrome Web Store Developer Dashboard → Store listing → Language: English
+This extension is the official companion of Rdown, the open-source download manager. It hands browser downloads to a local service on your machine, so big files, videos and torrents get a real engine. If it is off, everything falls back to the browser.
 
-## Value Proposition (Summary)
+✨ KEY FEATURES
+✅ Automatic Capture: intercepts browser downloads and sends them to your local Rdown manager, instant fallback on failure
+✅ Header Passthrough: forwards Cookie, Referer and User-Agent, so files behind logins work too
+✅ Media Sniffer: finds m3u8, mpd, video and audio on the page, deep-searches dynamic URLs, one click to save
+✅ BitTorrent and Magnet: click a magnet: link to create a task, trackers update automatically
+✅ Smart Filters and Automation: domain, extension and size rules, filename templates, multi-server routing, auto-save, shortcuts, notifications
 
-Rdown hands your browser downloads to the Rdown download manager on your own machine: multi-connection HTTP, BitTorrent & magnet, and m3u8/mpd streams — one-click capture, resume, and automatic fallback. Built for users who want fast, manageable, automatable downloads.
+🚀 HOW IT WORKS
+1. Install and start the free open-source Rdown app (http://127.0.0.1:16801)
+2. Add this extension and run the one-click connection test in options
+3. Grab files as usual: Rdown takes over, or the browser does when the app is off
 
-## Feature Sections
+🔒 PRIVACY
+• Settings are stored locally in your browser via chrome.storage
+• Download addresses and headers go only to the Rdown service on your machine (127.0.0.1)
+• No data collection, no third-party uploads, no ads, no tracking
 
-**Automatic Download Capture**
-- Clicking a download link sends it to Rdown and seamlessly cancels the browser download; on failure it falls back to the browser so no download is ever lost
-- Works on sites behind logins: Cookie / Referer / User-Agent are forwarded automatically
+💬 SUPPORT
+• Homepage: https://www.aimao.today
+• Repository: https://github.com/aimaonews/Rdown
+• Issues: https://github.com/aimaonews/Rdown/issues
 
-**Stream Sniffing & Downloads**
-- Automatically discovers m3u8 / mpd / video / audio resources loaded by the page; one-click download from the popup
-- Deep search scans page scripts for dynamically generated media URLs; quality selection and AES-128 decryption supported
-
-**BitTorrent & Magnet**
-- Click a magnet: link on any page to create a task instantly; automatic tracker updates; full DHT/LPD/PEX support
-
-**Smart Filters & Automation**
-- Three-level domain/extension/size allow & block lists; regex rules for sniffed media; filename templates (${title}/${host}/${date} and more)
-- Optional auto-download of sniffed media; hold Alt to bypass capture once; Alt+Shift+D toggles capture
-
-**Multi-Server & Integration**
-- Route downloads to different Rdown servers by URL rules; remote instances with API token auth
-- System notifications on completion/failure; badge shows active tasks and media count on the page
-
-## Localized Graphic Assets Checklist
-
-- [ ] Screenshot 1 (1280×800): Extension popup — capture toggle + page media list (English UI)
-- [ ] Screenshot 2 (1280×800): Options page — filter rules and multi-server configuration (English UI)
-- [ ] Screenshot 3 (1280×800): Rdown Web manager — task list (English, light mode)
-- [ ] Screenshot 4 (1280×800): New task dialog — stream resolve & quality selection (English)
-- [ ] Screenshot 5 (1280×800): Web manager in dark mode (English)
-- [ ] Localized promo video (optional): none yet; if an English demo video is recorded, fill it in the English listing's Localized promo video field
-
-## Privacy Note (append to store description)
-
-This extension only sends the download URL you initiate and the HTTP request headers required for that request to your local Rdown service (127.0.0.1 by default; data never leaves your machine). No third-party data collection, no ads, no tracking. See the privacy policy for details.
+<!-- SCREENSHOTS CAPTIONS (suggested top titles, not for the store page)
+1. Popup: capture switch and media found on this page
+2. Options: filter rules and multi-server routing
+3. Web dashboard: task list with real-time progress
+4. New task: stream parsing and quality selection
+-->

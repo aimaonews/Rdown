@@ -9,7 +9,8 @@
     "build:web": "npm --prefix web run build",
     "start": "node server/src/index.js",
     "dev-electron": "electron electron/main.cjs",
-    "pack": "electron-builder"
+    "pack": "electron-builder",
+    "pack:extension": "node tools/pack-extension.mjs"
   },
   "devDependencies": {
     "electron": "^39.8.10",
