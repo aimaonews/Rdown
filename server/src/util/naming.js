@@ -54,6 +54,6 @@ export function utf8SafeTruncate(name, maxBytes = 200) {
 /** 清洗 + 模板 + 截断的一站式入口 */
 export function buildSaveName(pattern, vars, { maxBytes = 200 } = {}) {
   const raw = renderNameTemplate(pattern, vars);
-  const clean = raw.replace(/[\\/:*?"<>| -]/g, '_').replace(/\s+/g, ' ').trim();
+  const clean = raw.replace(/[\\/:*?"<>|\x00-\x1f]/g, '_').replace(/\s+/g, ' ').trim();
   return utf8SafeTruncate(clean || 'download', maxBytes);
 }

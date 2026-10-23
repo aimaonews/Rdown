@@ -16,7 +16,7 @@ export function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 export function sanitizeFilename(name) {
   return (name || 'download')
-    .replace(/[\\/:*?"<>| -]/g, '_')
+    .replace(/[\\/:*?"<>|\x00-\x1f]/g, '_')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 120) || 'download';
