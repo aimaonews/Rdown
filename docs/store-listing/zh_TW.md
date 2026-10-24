@@ -26,9 +26,9 @@ Rdown 是開源下載管理器 Rdown 的官方瀏覽器擴充功能，免費、�
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS（標題已燒錄在圖片內）
-1. 任務清單（淺色）：一鍵接管，高速下載
-2. 新增任務：串流解析與畫質選擇
-3. 設定頁：精細到每一個細節
-4. 任務清單（深色模式）
+<!-- SCREENSHOTS CAPTIONS（標題已燒錄在圖片內·繁體中文）
+1. 一鍵接管，高速下載 — 多連線分段 · BT/磁力 · 中斷續傳
+2. 串流下載，一站搞定 — m3u8 / mpd · 畫質選擇 · AES-128 解密 · 自動轉封裝
+3. 精細到每一個細節 — 代理 · RPC · 限速預設 · 十語言 · 自動儲存
+4. 深色模式，晝夜隨行 — 主題跟隨系統 · 深淺一鍵切換 · 十語言介面
 -->

@@ -43,16 +43,23 @@
 | icons/icon128.png | 128×128 | PNG (ct=6 RGBA) | ✓ |
 
 ### 商店后台素材（全部 24 位 RGB 无 Alpha，已实测）
+
+**分语言截图 9 套 × 4 张**（每张 1280×800, ct=2），界面语言与烧录标题均与该语言列表一致，存放于 `docs/store-assets/<localeCode>/shot-01..04.png`；源界面图在 `docs/store-assets/src-shots/<localeCode>/ui-*.png`。`en` 套同时作为全球通用兜底：
+
+| 套 | shot-01 | shot-02 | shot-03 | shot-04 |
+|---|---|---|---|---|
+| en | Task list (light) | Stream dialog | Settings | Task list (dark) |
+| de / es / fr / ja / ko / pt_BR / zh_CN / zh_TW | 同上四画面，UI 与标题已本地化 | | | |
+
+各语言标题译文见各语言 `docs/store-listing/<locale>.md` 的 SCREENSHOTS CAPTIONS 注释块。
+
+全球共用物料（英文文案，无需本地化）：
 | 文件 | 尺寸 | 用途 |
 |---|---|---|
-| docs/store-assets/shot-01.png | 1280×800 (ct=2) | 截图 1：任务列表（亮色）· "一键接管，高速下载" |
-| docs/store-assets/shot-02.png | 1280×800 (ct=2) | 截图 2：新建任务·流媒体解析 · "流媒体下载，一站搞定" |
-| docs/store-assets/shot-03.png | 1280×800 (ct=2) | 截图 3：设置页（亮色）· "精细到每一个细节" |
-| docs/store-assets/shot-04.png | 1280×800 (ct=2) | 截图 4：任务列表（暗色模式）· "暗色模式，昼夜随行" |
 | docs/store-assets/promo-tile-440x280.png | 440×280 (ct=2) | 小型宣传图（全球共用） |
 | docs/store-assets/marquee-1400x560.png | 1400×560 (ct=2) | 大型横幅图（选填，Featured 提名用） |
 
-截图均为"品牌画布底板 + 居中界面卡片 + 顶部卖点标题"包装合成，非原始浏览器截屏。
+截图均为"品牌画布底板 + 居中界面卡片 + 顶部卖点标题"包装合成，非原始浏览器截屏；合成页模板 `docs/store-assets/src-shots/compose-screenshot.html` 可复现。
 
 ## 4. 商店文案
 

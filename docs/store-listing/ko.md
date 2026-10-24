@@ -26,9 +26,9 @@
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (제목은 이미지에 굽혀 넣었으며 간체 중국어입니다)
-1. 작업 목록(라이트): 원클릭 이관, 고속 다운로드
-2. 새 작업: 스트림 분석과 화질 선택
-3. 설정 페이지: 세세한 조절
-4. 작업 목록(다크 모드)
+<!-- SCREENSHOTS CAPTIONS (제목은 이미지에 굽혀 넣었으며 한국어입니다)
+1. 원클릭 인계, 고속 다운로드 — 다중 연결 · BT/마그넷 · 이어받기
+2. 스트림 다운로드도 한곳에서 — m3u8 / mpd · 화질 선택 · AES-128 · 자동 리먹스
+3. 세부 설정까지 섬세하게 — 프록시 · RPC · 속도 프리셋 · 10개 언어 · 자동 저장
+4. 다크 모드, 낮과 밤 모두 쾌적하게 — 시스템 따라감 · 원클릭 전환 · 10개 언어 UI
 -->

@@ -77,14 +77,30 @@ No mature content
 
 复用 `extension/icons/icon128.png`（128×128，程序生成的原创箭头图标，无需重制）。
 
-### Screenshots（截图）
+### Screenshots（截图，分语言上传）
 
-4 张 **1280×800** PNG/JPEG，存放于 `docs/store-assets/`（源图在 `docs/store-assets/src-shots/`，标题已烧录在图片内）。各语言的 `docs/store-listing/<locale>.md` 的 "SCREENSHOTS CAPTIONS" 注释块列有对应的说明：
+**9 种语言各一套，每套 4 张 1280×800 PNG**（24 位 RGB），界面与烧录标题均为该语言。在后台每个语言的列表页分别上传对应目录里的 4 张：
 
-1. 任务列表（亮色）—— "一键接管，高速下载"
+| 后台语言 tab | 上传 `docs/store-assets/` 下 | 
+|---|---|
+| English（默认/全球兜底） | `en/shot-01..04.png` |
+| Deutsch | `de/shot-01..04.png` |
+| Español | `es/shot-01..04.png` |
+| Français | `fr/shot-01..04.png` |
+| 日本語 | `ja/shot-01..04.png` |
+| 한국어 | `ko/shot-01..04.png` |
+| Português (Brasil) | `pt_BR/shot-01..04.png` |
+| 简体中文 | `zh_CN/shot-01..04.png` |
+| 繁體中文 | `zh_TW/shot-01..04.png` |
+
+每套 4 张内容相同、语言不同：
+
+1. 任务列表（亮色）
 2. 新建任务对话框 —— 流媒体解析与清晰度选择
-3. 设置页 —— "精细到每一个细节"
-4. 任务列表（暗色模式）—— "暗色模式，昼夜随行"
+3. 设置页
+4. 任务列表（暗色模式）
+
+各语言标题文案见 `docs/store-listing/<locale>.md` 的 "SCREENSHOTS CAPTIONS" 注释块。
 
 ### Small Promo Tile（小宣传图）
 

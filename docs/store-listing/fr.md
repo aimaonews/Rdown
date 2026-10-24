@@ -26,9 +26,9 @@ Rdown est l'extension officielle du gestionnaire de téléchargements open sourc
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (les titres sont intégrés dans les images, en chinois simplifié)
-1. Liste des tâches (clair) : prise en charge en un clic, téléchargements rapides
-2. Nouvelle tâche : analyse des flux et choix de la qualité
-3. Paramètres : réglages fins
-4. Liste des tâches (mode sombre)
+<!-- SCREENSHOTS CAPTIONS (les titres sont intégrés dans les images, en français)
+1. Prise en main en un clic, téléchargements rapides — Connexions multiples · BT / Magnets · Reprise
+2. Téléchargez les flux, tout au même endroit — m3u8 / mpd · Choix de la qualité · AES-128 · Remux auto
+3. Un réglage de chaque détail — Proxy · RPC · Limites prédéfinies · 10 langues · Sauvegarde auto
+4. Mode sombre, jour et nuit — Suit le système · Bascule en un clic · Interface en 10 langues
 -->

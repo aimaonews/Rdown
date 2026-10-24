@@ -26,9 +26,9 @@ Rdown 是开源下载管理器 Rdown 的官方浏览器扩展，免费、开源�
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS（标题已烧录在图片内）
-1. 任务列表（亮色）：一键接管，高速下载
-2. 新建任务：流媒体解析与清晰度选择
-3. 设置页：精细到每一个细节
-4. 任务列表（暗色模式）
+<!-- SCREENSHOTS CAPTIONS（标题已烧录在图片内·简体中文）
+1. 一键接管，高速下载 — 多连接分段 · BT/磁力 · 断点续传
+2. 流媒体下载，一站搞定 — m3u8 / mpd · 清晰度选择 · AES-128 解密 · 自动转封装
+3. 精细到每一个细节 — 代理 · RPC · 限速预设 · 十语言 · 自动保存
+4. 暗色模式，昼夜随行 — 主题跟随系统 · 深浅一键切换 · 十语言界面
 -->

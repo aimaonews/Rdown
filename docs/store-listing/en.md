@@ -26,9 +26,9 @@ This extension is the official companion of Rdown, the open-source download mana
 • Repository: https://github.com/aimaonews/Rdown
 • Issues: https://github.com/aimaonews/Rdown/issues
 
-<!-- SCREENSHOTS CAPTIONS (titles are baked into the images, in Simplified Chinese)
-1. Task list (light): one-click takeover, high-speed downloads
-2. New task: stream parsing and quality selection
-3. Settings: fine-grained controls
-4. Task list (dark mode)
+<!-- SCREENSHOTS CAPTIONS (titles are baked into the images, in English)
+1. One-click takeover, full-speed downloads — Multi-connection · BT / Magnet · Resume support
+2. Stream downloads, all in one place — m3u8 / mpd · Quality selection · AES-128 · Auto remux
+3. Control down to every detail — Proxy · RPC · Speed presets · 10 languages · Auto-save
+4. Dark mode, day and night — Follows system · One-click switch · 10-language UI
 -->
