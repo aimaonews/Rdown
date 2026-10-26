@@ -1,4 +1,5 @@
 // i18n 校验：9 个语言文件 key 集合与 zh_CN 完全一致（0 缺失 0 多余），
+// 占位符 $1..$N 跨语言一致（防某语言漏译导致替换断裂），
 // 且 HTML 的 data-i18n / data-i18n-ph 与 JS 的 i18n('...') 引用全部有对应 key。
 import fs from 'node:fs';
 import path from 'node:path';
@@ -48,13 +49,31 @@ for (const d of dirs) {
   }
 }
 
+// 占位符一致性：每 key 的 $N 占位符集合在 9 个语言必须与 zh_CN 相同
+function placeholders(msg) {
+  return [...String(msg).matchAll(/\$(\d+)/g)].map(m => '$' + m[1]).sort().join(',');
+}
+let phFail = 0;
+for (const d of dirs) {
+  const j = JSON.parse(fs.readFileSync(path.join(LOCALES, d, 'messages.json'), 'utf8'));
+  for (const k of refKeys) {
+    const want = placeholders(ref[k].message);
+    const got = placeholders(j[k]?.message ?? '');
+    if (want !== got) {
+      console.error(`✗ ${d}.${k}: 占位符 [${got}] 与 zh_CN [${want}] 不一致`);
+      phFail++; fail++;
+    }
+  }
+}
+if (!phFail) console.log(`✓ 占位符 $N 一致性：${refKeys.length} keys × ${dirs.length} 语言全部一致`);
+
 // 引用完整性：HTML data-i18n / data-i18n-ph 与 JS i18n('key') 必须存在于 zh_CN
 const used = new Set();
-for (const f of ['popup.html', 'options.html']) {
+for (const f of ['popup.html', 'options.html', 'onboarding.html']) {
   const html = fs.readFileSync(path.join(EXT, f), 'utf8');
   for (const m of html.matchAll(/data-i18n(?:-ph)?="([^"]+)"/g)) used.add(m[1]);
 }
-for (const f of ['popup.js', 'options.js', 'background.js']) {
+for (const f of ['popup.js', 'options.js', 'background.js', 'onboarding.js']) {
   const js = fs.readFileSync(path.join(EXT, f), 'utf8');
   for (const m of js.matchAll(/\bi18n\(\s*'([^']+)'/g)) used.add(m[1]);
 }
@@ -69,7 +88,7 @@ try {
   const bad = refs.map(r => r.slice(6, -2)).filter(k => !refKeys.includes(k));
   if (bad.length) { console.error(`✗ manifest 引用缺失 key: ${bad}`); fail++; }
   else console.log(`✓ manifest.json 合法，default_locale=${mf.default_locale}，__MSG_ 引用 ${refs.length} 处全部存在`);
-} catch (e) { console.error(`✗ manifest.json 解析失败 ${e.message}`); fail++; }
+} catch (e) { console.error(`✗ manifest.json 解析失败: ${e.message}`); fail++; }
 
 console.log(fail ? `\n结果: ${fail} 项失败` : '\n结果: 全部通过');
 process.exit(fail ? 1 : 0);
